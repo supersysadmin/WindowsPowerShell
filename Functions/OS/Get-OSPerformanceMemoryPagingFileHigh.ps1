@@ -22,9 +22,10 @@
 .NOTES
     Author   : Ingvald Belmans
     Website  : http://www.supersysadmin.com
-    Version  : 1.0 
+    Version  : 1.1
     Changelog:
         - 1.0 (2016-01-08) Initial version.
+        - 1.1 (2016-01-08) Removed some unnecessary code.
 .LINK
     http://www.supersysadmin.com  
 #>
@@ -62,10 +63,6 @@ function Get-OSPerformanceMemoryPagingFileHigh
             Write-Verbose -Message "Currently processing computer '$Computer'."
             $ComputerCounter++
             Write-Progress -Activity "Getting counter samples of $($ComputerName.Count) computer(s)" -Status "Currently processing computer $ComputerCounter of $($ComputerName.Count)" -PercentComplete (($ComputerCounter/$ComputerName.Count)*100) -Id 1
-            Write-Verbose -Message "Currently retrieving RAM size from computer '$Computer'." 
-            $WMIComputerSystem = Get-WmiObject -Class Win32_ComputerSystem -ComputerName $Computer
-            $WMIComputerSystemTotalRAM = $WMIComputerSystem.TotalPhysicalMemory
-            $MemoryPoolNonPagedBytesThreshold = 0.80 * (0.75 * $WMIComputerSystemTotalRAM)
             $SampleCounter = 0 
             While ($SampleCounter -lt $Samples)
             {
